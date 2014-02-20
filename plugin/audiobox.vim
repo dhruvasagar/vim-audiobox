@@ -21,8 +21,8 @@ if exists('g:loaded_audiobox')
 endif
 let g:loaded_audiobox = 1
 
-if !executable('dbus-send')
-  echoerr 'dbus-send is required for Audiobox to work'
+if !has('python')
+  echoerr 'This plugin depends on python, make sure vim is compiled with python support.'
   finish
 endif
 
@@ -41,16 +41,19 @@ call s:SetOption('audiobox_dbus_properties_interface', 'org.freedesktop.DBus.Pro
 let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
 if !exists('g:audiobox_py_loaded')
-  exe 'pyfile' . s:plugin_path . '/audiobox.py'
+  python import sys, vim
+  python if vim.eval('expand("<sfile>:p:h")') not in sys.path:
+        \  sys.path.append(vim.eval('expand("<sfile>:p:h")'))
+  python import audiobox
 endif
 let g:audiobox_py_loaded = 1
 
-command! -bar AudioboxPlay python Play()
-command! -bar AudioboxNext python Next()
-command! -bar AudioboxPrev python Prev()
-command! -bar AudioboxPause python Pause()
-command! -bar AudioboxTogglePlay python PlayPause()
-command! -bar AudioboxShowCurrentSong python GetCurrentSong()
+command! -bar AudioboxPlay python audiobox.Play()
+command! -bar AudioboxNext python audiobox.Next()
+command! -bar AudioboxPrev python audiobox.Prev()
+command! -bar AudioboxPause python audiobox.Pause()
+command! -bar AudioboxTogglePlay python audiobox.PlayPause()
+command! -bar AudioboxShowCurrentSong python audiobox.GetCurrentSong()
 
 nnoremap <silent> <Plug>AudioboxPlay :AudioboxPlay<CR>
 nnoremap <silent> <Plug>AudioboxPause :AudioboxPause<CR>

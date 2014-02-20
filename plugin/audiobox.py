@@ -1,22 +1,22 @@
 import vim
-import dbus
+from dbus import SessionBus, Interface, DBusException, UnknownMethodException
 
-bus = dbus.SessionBus()
+bus = SessionBus()
 proxy_obj = bus.get_object(vim.eval('g:audiobox_dbus_dest'),
                             vim.eval('g:audiobox_dbus_path'))
-player = dbus.Interface(proxy_obj, vim.eval('g:audiobox_dbus_interface'))
-properties = dbus.Interface(proxy_obj, vim.eval('g:audiobox_dbus_properties_interface'))
+player = Interface(proxy_obj, vim.eval('g:audiobox_dbus_interface'))
+properties = Interface(proxy_obj, vim.eval('g:audiobox_dbus_properties_interface'))
 
 def trycatch(func):
     def wrap_function():
         try:
             func()
-        except dbus.exceptions.DBusException:
-            vim.command("echohl Error | echom \"Player not launched\" | echohl None")
-        except dbus.exceptions.UnknownMethodException:
-            vim.command("echohl Error | echom \"Unknown method!?\" | echohl None")
+        except DBusException:
+            vim.command("echoerr \"Player not launched!\"")
+        except UnknownMethodException:
+            vim.command("echoerr \"Unknown method!?\"")
         except:
-            vim.command("echohl Error | echom \"Unknown exception!\" | echohl None")
+            vim.command("echoerr \"Unknown exception!\"")
     return wrap_function
 
 @trycatch
