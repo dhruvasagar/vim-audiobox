@@ -38,9 +38,9 @@ Audiobox plugin provides a few helpful commands and mappings.
 
 ### Mappings
 
-* `<Plug>AudioboxPlay` : by default this is mapped to <kbd>\<Leader\>rp</kbd>.
-* `<Plug>AudioboxNext` : by default this is mapped to <kbd>\<Leader\>rn</kbd>.
-* `<Plug>AudioboxPrev` : by default this is mapped to <kbd>\<Leader\>rN</kbd>.
-* `<Plug>AudioboxPause` : by default this is mapped to <kbd>\<Leader\>rP</kbd>.
-* `<Plug>AudioboxTogglePlay` : by default this is mapped to <kbd>\<Leader\>rt</kbd>.
-* `<Plug>AudioboxShowCurrentSong` : by default this is mapped to <kbd>\<Leader\>rs</kbd>.
+* `<Plug>AudioboxPlay` : by default this is mapped to <kbd>\<Leader\>ap</kbd>.
+* `<Plug>AudioboxNext` : by default this is mapped to <kbd>\<Leader\>an</kbd>.
+* `<Plug>AudioboxPrev` : by default this is mapped to <kbd>\<Leader\>aN</kbd>.
+* `<Plug>AudioboxPause` : by default this is mapped to <kbd>\<Leader\>aP</kbd>.
+* `<Plug>AudioboxTogglePlay` : by default this is mapped to <kbd>\<Leader\>at</kbd>.
+* `<Plug>AudioboxShowCurrentSong` : by default this is mapped to <kbd>\<Leader\>as</kbd>.
