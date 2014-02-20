@@ -60,20 +60,20 @@ nnoremap <silent> <Plug>AudioboxNext :AudioboxNext <Bar> AudioboxShowCurrentSong
 nnoremap <silent> <Plug>AudioboxPrev :AudioboxPrev <Bar> AudioboxShowCurrentSong<CR>
 
 if !hasmapto('<Plug>AudioboxPlay')
-  nmap <Leader>rp <Plug>AudioboxPlay
+  nmap <Leader>ap <Plug>AudioboxPlay
 endif
 if !hasmapto('<Plug>AudioboxNext')
-  nmap <Leader>rn <Plug>AudioboxNext
+  nmap <Leader>an <Plug>AudioboxNext
 endif
 if !hasmapto('<Plug>AudioboxPrev')
-  nmap <Leader>rN <Plug>AudioboxPrev
+  nmap <Leader>aN <Plug>AudioboxPrev
 endif
 if !hasmapto('<Plug>AudioboxPause')
-  nmap <Leader>rP <Plug>AudioboxPause
+  nmap <Leader>aP <Plug>AudioboxPause
 endif
 if !hasmapto('<Plug>AudioboxTogglePlay')
-  nmap <Leader>rt <Plug>AudioboxTogglePlay
+  nmap <Leader>at <Plug>AudioboxTogglePlay
 endif
 if !hasmapto('<Plug>AudioboxShowCurrentSong')
-  nmap <Leader>rs <Plug>AudioboxShowCurrentSong
+  nmap <Leader>as <Plug>AudioboxShowCurrentSong
 endif
