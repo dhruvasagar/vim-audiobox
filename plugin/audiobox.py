@@ -1,56 +1,74 @@
 import vim
+from traceback import print_exc
 from dbus import SessionBus, Interface, DBusException, UnknownMethodException
 
-bus = SessionBus()
-proxy_obj = bus.get_object(vim.eval('g:audiobox_dbus_dest'),
-                            vim.eval('g:audiobox_dbus_path'))
-player = Interface(proxy_obj, vim.eval('g:audiobox_dbus_interface'))
-properties = Interface(proxy_obj, vim.eval('g:audiobox_dbus_properties_interface'))
+class Audiobox():
+    """Audiobox class"""
+    def __init__(self):
+        self.bus = SessionBus()
+        self.init()
 
-def trycatch(func):
-    def wrap_function():
-        try:
-            func()
-        except DBusException:
-            vim.command("echoerr \"Player not launched!\"")
-        except UnknownMethodException:
-            vim.command("echoerr \"Unknown method!?\"")
-        except:
-            vim.command("echoerr \"Unknown exception!\"")
-    return wrap_function
+    def init(self):
+        self.proxy_obj = self.bus.get_object(vim.eval('g:audiobox_dbus_dest'),
+                                             vim.eval('g:audiobox_dbus_path'))
+        self.player = Interface(self.proxy_obj, vim.eval('g:audiobox_dbus_interface'))
+        self.properties = Interface(self.proxy_obj, vim.eval('g:audiobox_dbus_properties_interface'))
 
-@trycatch
-def Play():
-    """Play current song"""
-    player.Play()
+    def Play(self):
+        """Play current song"""
+        if self.player:
+            self.player.Play()
 
-@trycatch
-def Pause():
-    """Pause current song"""
-    player.Pause()
+    def Pause(self):
+        """Pause current song"""
+        if self.player:
+            self.player.Pause()
 
-@trycatch
-def Next():
-    """Play the next song"""
-    player.Next()
+    def Next(self):
+        """Play the next song"""
+        if self.player:
+            self.player.Next()
 
-@trycatch
-def Prev():
-    """Play the previous song"""
-    player.Previous()
+    def Prev(self):
+        """Play the previous song"""
+        if self.player:
+            self.player.Previous()
 
-@trycatch
-def PlayPause():
-    """Play / Pause the current song"""
-    player.PlayPause()
+    def PlayPause(self):
+        """Play / Pause the current song"""
+        if self.player:
+            self.player.PlayPause()
 
-@trycatch
-def Stop():
-    """Stop the current song"""
-    player.Stop()
+    def Stop(self):
+        """Stop the current song"""
+        if self.player:
+            self.player.Stop()
 
-@trycatch
-def GetCurrentSong():
-    """Get the title of the current song"""
-    metadata = properties.Get(vim.eval('g:audiobox_dbus_interface'), 'Metadata')
-    vim.command("echohl String | echom \"" + ("Song: %s, Artist: %s, Album: %s" % (str(metadata['xesam:title']), str(metadata['xesam:artist'][0]), str(metadata['xesam:album']))) + "\" | echohl None")
+    def GetCurrentSong(self):
+        """Get the title of the current song"""
+        if self.properties:
+            metadata = self.properties.Get(vim.eval('g:audiobox_dbus_interface'), 'Metadata')
+            vim.command("echohl String | echom \"" + ("Song: %s, Artist: %s, Album: %s" % (str(metadata['xesam:title']), str(metadata['xesam:artist'][0]), str(metadata['xesam:album']))) + "\" | echohl None")
+
+audioboxObject = None
+def setup():
+    """return audiobox instance"""
+    global audioboxObject
+    try:
+        if audioboxObject is None:
+            audioboxObject = Audiobox()
+        else:
+            audioboxObject.init()
+        return audioboxObject
+    except DBusException:
+        vim.command("echohl Error | echom \"Player not launched!\" | echohl None")
+        if int(vim.eval('g:audiobox_debug')) == 1:
+            print_exc()
+    except UnknownMethodException:
+        vim.command("echohl Error | echom \"Unknown method!?\" | echohl None")
+        if int(vim.eval('g:audiobox_debug')) == 1:
+            print_exc()
+    except:
+        vim.command("echohl Error | echom \"Unknown exception!\" | echohl None")
+        if int(vim.eval('g:audiobox_debug')) == 1:
+            print_exc()

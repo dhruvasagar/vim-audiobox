@@ -4,7 +4,7 @@
 " Author:        Dhruva Sagar <http://dhruvasagar.com/>
 " License:       MIT (http://www.opensource.org/licenses/MIT)
 " Website:       http://github.com/dhruvasagar/vim-audiobox
-" Version:       0.1
+" Version:       0.2
 " Copyright Notice:
 "                Permission is hereby granted to use and distribute this code,
 "                with or without modifications, provided that this copyright
@@ -32,6 +32,7 @@ function! s:SetOption(opt, val)
 endfunction
 
 let s:dbus_interface_prefix = 'org.mpris.MediaPlayer2'
+call s:SetOption('audiobox_debug', 0)
 call s:SetOption('audiobox_player', 'rhythmbox')
 call s:SetOption('audiobox_dbus_path', '/org/mpris/MediaPlayer2')
 call s:SetOption('audiobox_dbus_dest', s:dbus_interface_prefix . '.' . g:audiobox_player)
@@ -48,12 +49,12 @@ if !exists('g:audiobox_py_loaded')
 endif
 let g:audiobox_py_loaded = 1
 
-command! -bar AudioboxPlay python audiobox.Play()
-command! -bar AudioboxNext python audiobox.Next()
-command! -bar AudioboxPrev python audiobox.Prev()
-command! -bar AudioboxPause python audiobox.Pause()
-command! -bar AudioboxTogglePlay python audiobox.PlayPause()
-command! -bar AudioboxShowCurrentSong python audiobox.GetCurrentSong()
+command! -bar AudioboxPlay python audiobox.setup() and audiobox.setup().Play()
+command! -bar AudioboxNext python audiobox.setup() and audiobox.setup().Next()
+command! -bar AudioboxPrev python audiobox.setup() and audiobox.setup().Prev()
+command! -bar AudioboxPause python audiobox.setup() and audiobox.setup().Pause()
+command! -bar AudioboxTogglePlay python audiobox.setup() and audiobox.setup().PlayPause()
+command! -bar AudioboxShowCurrentSong python audiobox.setup() and audiobox.setup().GetCurrentSong()
 
 nnoremap <silent> <Plug>AudioboxPlay :AudioboxPlay<CR>
 nnoremap <silent> <Plug>AudioboxPause :AudioboxPause<CR>
