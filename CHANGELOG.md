@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 0.2.1
+* Moved to leaderless mapping keeping inline with vim's philosphy
+
 ## Version 0.2
 * Refactored python code
 * Better error handling

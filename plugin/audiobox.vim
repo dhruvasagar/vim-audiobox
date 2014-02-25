@@ -4,7 +4,7 @@
 " Author:        Dhruva Sagar <http://dhruvasagar.com/>
 " License:       MIT (http://www.opensource.org/licenses/MIT)
 " Website:       http://github.com/dhruvasagar/vim-audiobox
-" Version:       0.2
+" Version:       0.2.1
 " Copyright Notice:
 "                Permission is hereby granted to use and distribute this code,
 "                with or without modifications, provided that this copyright
@@ -64,20 +64,20 @@ nnoremap <silent> <Plug>AudioboxNext :AudioboxNext <Bar> AudioboxShowCurrentSong
 nnoremap <silent> <Plug>AudioboxPrev :AudioboxPrev <Bar> AudioboxShowCurrentSong<CR>
 
 if !hasmapto('<Plug>AudioboxPlay')
-  nmap <Leader>ap <Plug>AudioboxPlay
+  nmap gmp <Plug>AudioboxPlay
 endif
 if !hasmapto('<Plug>AudioboxNext')
-  nmap <Leader>an <Plug>AudioboxNext
+  nmap gmn <Plug>AudioboxNext
 endif
 if !hasmapto('<Plug>AudioboxPrev')
-  nmap <Leader>aN <Plug>AudioboxPrev
+  nmap gmN <Plug>AudioboxPrev
 endif
 if !hasmapto('<Plug>AudioboxPause')
-  nmap <Leader>aP <Plug>AudioboxPause
+  nmap gmP <Plug>AudioboxPause
 endif
 if !hasmapto('<Plug>AudioboxTogglePlay')
-  nmap <Leader>at <Plug>AudioboxTogglePlay
+  nmap gmt <Plug>AudioboxTogglePlay
 endif
 if !hasmapto('<Plug>AudioboxShowCurrentSong')
-  nmap <Leader>as <Plug>AudioboxShowCurrentSong
+  nmap gms <Plug>AudioboxShowCurrentSong
 endif
