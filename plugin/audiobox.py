@@ -48,7 +48,11 @@ class Audiobox():
         """Get the title of the current song"""
         if self.properties:
             metadata = self.properties.Get(vim.eval('g:audiobox_dbus_interface'), 'Metadata')
-            vim.command("echohl String | echom \"" + ("Song: %s, Artist: %s, Album: %s" % (str(metadata['xesam:title']), str(metadata['xesam:artist'][0]), str(metadata['xesam:album']))) + "\" | echohl None")
+            if len(metadata) > 0:
+                vim.command("echohl String | echom \"" + ("Song: %s, Artist: %s, Album: %s"
+                    % (str(metadata['xesam:title']),
+                        str(metadata['xesam:artist'][0]),
+                        str(metadata['xesam:album']))) + "\" | echohl None")
 
 audioboxObject = None
 def setup():
